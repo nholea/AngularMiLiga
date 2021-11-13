@@ -1,0 +1,9 @@
+.main-menu {
+  position: fixed;
+  z-index: 100;
+}
+
+.container {
+  padding-top: 100px;
+  padding-left: 40px;
+}

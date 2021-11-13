@@ -1,0 +1,10 @@
+.jugador-card {
+  max-width: 200px;
+  margin: 20px;
+}
+
+.jugador-header-image {
+  background-image: url('http://via.placeholder.com/50x50?text=thumb');
+  background-size: cover;
+}
+

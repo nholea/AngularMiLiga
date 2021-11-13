@@ -1,0 +1,78 @@
+<p>
+  Equipo: {{ nombre | uppercase }}
+  <br />
+  <br />
+  <code>Aficionados: {{ aficionados | number }}</code>
+</p>
+<p>Presupuesto: {{ presupuesto | currency: "EUR":true }}</p>
+<mat-divider></mat-divider>
+
+<h2>Jugadores</h2>
+<mat-grid-list cols="4" rowHeight="100">
+    <p>
+      <code>
+        Última actualización: {{ actualizacion | date: "dd-MM-yyyy HH:mm" }}
+      </code>
+    </p>
+  <mat-grid-tile colspan="2" style="margin-left: 450px">
+    <mat-form-field class="search-input">
+      <input
+        matInput
+        type="search"
+        placeholder="Buscar jugador..."
+        [(ngModel)]="busqueda"
+      />
+      <button mat-button matPrefix mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="5" rowHeight="380" style="padding: 20px">
+  <mat-grid-tile rowspan="2">
+    <mat-accordion class="jugadores-headers-align">
+      <mat-expansion-panel
+        hideToggle="true"
+        *ngFor="let item of jugadores; let i = index"
+        [expanded]="step === i"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ item.nombre }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ item.posicion }}
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>Edad: {{ item.edad }}</p>
+        <p>Apodo: {{ item.apodo }}</p>
+        <p *ngIf="item.estado" [ngStyle]="{ color: 'blue' }">Estado: Activo</p>
+        <p *ngIf="!item.estado" [ngStyle]="{ color: 'red' }">
+          Estado: Inactivo
+        </p>
+
+        <button
+          *ngIf="!item.estado"
+          mat-raised-button
+          color="primary"
+          (click)="activarJugador(item)"
+        >
+          Activar
+        </button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-grid-tile>
+  <mat-grid-tile
+    *ngFor="let item of jugadores | filtroLetra: busqueda; let i = index"
+  >
+    <app-jugador
+      [ngClass]="{ jugadorInactivo: !item.estado, jugadorActivo: item.estado }"
+      [jugador]="item"
+      [equipo]="nombre"
+      (onActivate)="actualizarEstado(item, i, $event)"
+      (click)="mostrarDatos(i)"
+    ></app-jugador>
+  </mat-grid-tile>
+</mat-grid-list>
