@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Jugador } from './../../interfaces/jugador.interface';
 import { Equipo } from './../../interfaces/equipo.interface';
 
-import JUGADORES from './../../../assets/data/jugadores.json';
-import EQUIPOS from './../../../assets/data/equipos.json';
+import JUGADORES from './../../../assets/data/jugadores.json'; // importar json
+import EQUIPOS from './../../../assets/data/equipos.json';     // importar json
 
 @Component({
   selector: 'app-equipo',
